@@ -259,7 +259,16 @@ void DMA1_Stream6_IRQHandler(void)
   /* USER CODE END DMA1_Stream6_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_usart2_tx);
   /* USER CODE BEGIN DMA1_Stream6_IRQn 1 */
+  
+  // Start UART DMA Transfer for test cycles
+  if (count <= (discardCycles+cycleNum)*10000+100){
+    HAL_UART_Transmit_DMA(&huart2, sysID, 21);
+  }
 
+  //Stop UART DMA TX after test cycles
+  else {
+    HAL_UART_DMAStop(&huart2);
+  }
   /* USER CODE END DMA1_Stream6_IRQn 1 */
 }
 
@@ -336,17 +345,7 @@ void USART2_IRQHandler(void)
   /* USER CODE END USART2_IRQn 0 */
   HAL_UART_IRQHandler(&huart2);
   /* USER CODE BEGIN USART2_IRQn 1 */
-  // HAL_UART_Transmit_DMA(&huart2, sysID, 21);
 
-  //Stop UART DMA TX after test cycles
-  if (count > (cycleNum*10000)){
-    HAL_UART_DMAStop(&huart2);
-  }
-
-  // Set DMA to ready
-  else {
-    HAL_UART_Transmit_DMA(&huart2, sysID, 21);
-  }
 
   /* USER CODE END USART2_IRQn 1 */
 }

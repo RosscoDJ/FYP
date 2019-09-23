@@ -178,7 +178,7 @@ int main(void)
 
   //  Test code for comissioning
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, Xdisable);   // X Axis enable/disable
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, Yenable);   // Y Axis enable/disable
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, Ydisable);   // Y Axis enable/disable
   // Set Speed, positive for forward, negative for reverse
   // setXSpeed(60);
   // setYSpeed(20);
@@ -236,7 +236,7 @@ int main(void)
         posY = posYNew;
 
         // Transmit data to UART
-        if ((count >= discardCycles*10000) && (count <= cycleNum*10000)) {
+        if ((count >= discardCycles*10000) && count < (discardCycles+cycleNum)*10000+100) {
           // sprintf(sysID, "%05i, %05i, %06i\n", count/10, rpmTargetY, (int)rpmX);  // X Axis
           sprintf(sysID, "%05i, %05i, %06i\n", count/10, rpmTargetY, (int)rpmY);  // Y Axis
 
