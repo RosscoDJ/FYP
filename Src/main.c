@@ -178,15 +178,15 @@ int main(void)
 
   //  Test code for comissioning
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, Xdisable);   // X Axis enable/disable
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, Ydisable);   // Y Axis enable/disable
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, Yenable);   // Y Axis enable/disable
   // Set Speed, positive for forward, negative for reverse
   // setXSpeed(60);
   // setYSpeed(20);
 
 
   // Center encoder count for testing, remove later
-  (TIM3->CNT) = 40000;
-  (TIM4->CNT) = 40000;
+  (TIM3->CNT) = 4095;
+  (TIM4->CNT) = 35000;
 
 
   /* USER CODE END 2 */
