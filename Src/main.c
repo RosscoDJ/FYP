@@ -178,16 +178,16 @@ int main(void)
 
   //  Test code for comissioning
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, Xdisable);   // X Axis enable/disable
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, Yenable);   // Y Axis enable/disable
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, Ydisable);   // Y Axis enable/disable
   // Set Speed, positive for forward, negative for reverse
   // setXSpeed(60);
   // setYSpeed(20);
 
 
   // Center encoder count for testing, remove later
-  (TIM3->CNT) = 4095;
-  (TIM4->CNT) = 35000;
-
+  // (TIM3->CNT) = 4095;
+  // (TIM4->CNT) = 35000;
+  sprintf(sysID, "%05i\n", TIM4->CNT);  // Y Axis
 
   /* USER CODE END 2 */
 
@@ -235,12 +235,12 @@ int main(void)
         posX = posXNew;
         posY = posYNew;
 
-        // Transmit data to UART
-        if ((count >= discardCycles*10000) && count < (discardCycles+cycleNum)*10000+100) {
-          // sprintf(sysID, "%05i, %05i, %06i\n", count/10, rpmTargetY, (int)rpmX);  // X Axis
-          sprintf(sysID, "%05i, %05i, %06i\n", count/10, rpmTargetY, (int)rpmY);  // Y Axis
-
-        }
+        // // Transmit data to UART
+        // if ((count >= discardCycles*10000) && count < (discardCycles+cycleNum)*10000+100) {
+        //   // sprintf(sysID, "%05i, %05i, %06i\n", count/10, rpmTargetY, (int)rpmX);  // X Axis
+        //   sprintf(sysID, "%05i, %05i, %06i\n", count/10, rpmTargetY, (int)rpmY);  // Y Axis
+        //
+        // }
 
         flag = 0;
     }
